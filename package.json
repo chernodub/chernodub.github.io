@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/chernodub/chernodub.github.io/issues"
   },
-  "homepage": "https://github.com/chernodub/chernodub.github.io#readme"
+  "homepage": "https://github.com/chernodub/chernodub.github.io#readme",
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
 }
