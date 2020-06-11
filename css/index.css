@@ -1,1 +1,19 @@
 @import "./fonts.css";
+
+:root {
+  --background-color: black;
+  --primary-font-color: white;
+}
+
+:root {
+  background-color: var(--background-color);
+  color: var(--primary-font-color);
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
