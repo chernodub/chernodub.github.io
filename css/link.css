@@ -1,0 +1,9 @@
+/** Link styles */
+
+a {
+  color: var(--primary-color);
+}
+
+a:hover {
+  background: var(--primary-contrast-color);
+}

@@ -1,14 +1,15 @@
-@import "./fonts.css";
-
-:root {
-  --background-color: black;
-  --primary-font-color: white;
-}
+@import './theme.css';
+@import './fonts.css';
+@import './link.css';
 
 :root {
   background-color: var(--background-color);
   color: var(--primary-font-color);
   height: 100%;
+}
+
+::selection {
+  background: var(--primary-font-contrast-color);
 }
 
 body {
@@ -25,4 +26,14 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.info-section a {
+  padding: 10px;
+}
+
+@media (max-width: 500px) {
+  .info-section a {
+    padding: 15px;
+  }
 }

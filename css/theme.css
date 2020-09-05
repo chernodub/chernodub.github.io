@@ -1,0 +1,24 @@
+:root {
+  /* Bg color. */
+  --background-color: black;
+
+  /* Font colors. */
+  --primary-font-color: white;
+  --primary-font-contrast-color: lightgrey;
+
+  /* UI colors. */
+  --primary-color: cornflowerblue;
+  --primary-contrast-color: white;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background-color: lightgrey;
+
+    --primary-font-color: #636363;
+    --primary-font-contrast-color: white;
+
+    --primary-color: black;
+    --primary-contrast-color: white;
+  }
+}
