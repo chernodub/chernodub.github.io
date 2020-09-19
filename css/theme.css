@@ -8,7 +8,10 @@
 
   /* UI colors. */
   --primary-color: cornflowerblue;
+  --primary-shade-color: darkslateblue;
   --primary-contrast-color: white;
+
+  --complementary-color: rgb(125, 30, 103);
 }
 
 @media (prefers-color-scheme: light) {

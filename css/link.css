@@ -1,9 +1,15 @@
-/** Link styles */
+/* Links list */
 
 a {
   color: var(--primary-color);
+  transition: 100ms;
 }
 
 a:hover {
-  background: var(--primary-contrast-color);
+  color: var(--primary-shade-color);
+}
+
+a > svg {
+  display: block;
+  fill: currentColor;
 }

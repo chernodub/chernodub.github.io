@@ -157,8 +157,7 @@ setInterval(
 );
 
 function renderThunder(x: number, y: number): void {
-  // (document.querySelector('.header h1') as any).click();
-  const heading = document.querySelector('.header h1')!;
+  const heading = document.querySelector('.heading')!;
   heading.classList.add('glitched');
   setTimeout(() => heading.classList.remove('glitched'), 100);
   ctx.renderFigure(
