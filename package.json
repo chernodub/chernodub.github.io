@@ -3,6 +3,7 @@
   "version": "0.0.3",
   "description": "Profile page",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "dev": "concurrently \"npm:watch-dev\" \"npm:serve-dev\"",
     "serve-dev": "live-server --ignorePattern=\".*\\.ts\"",
