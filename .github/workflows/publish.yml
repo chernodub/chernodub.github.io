@@ -11,8 +11,10 @@ jobs:
         node-version: [12.x]
 
     steps:
-      - run: ls
+      - uses: actions/checkout@v2
       - run: npm ci
       - run: npm run build
+      - run: chmod +x ./scripts/update-gh-pages.sh
+      - run: ./scripts/update-gh-pages.sh
     env:
-      CI: true
+      GITHUB_TOKEN: ${{ secrets.github_token }}
