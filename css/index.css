@@ -1,11 +1,13 @@
 @import './theme.css';
 @import './fonts.css';
 @import './link.css';
+@import './background-canvas.css';
 
 :root {
   background-color: var(--background-color);
   color: var(--primary-font-color);
   height: 100%;
+  transition: 100ms;
 }
 
 ::selection {
@@ -30,6 +32,23 @@ body {
 
 .info-section a {
   padding: 10px;
+}
+
+.info-section > *,
+.header {
+  user-select: none;
+}
+
+h1 {
+  text-shadow: 0 0 0 white;
+  transition: 300ms;
+  animation-timing-function: cubic-bezier(0.95, 0.795, 0.05, 0.035);
+}
+
+.header h1:active,
+.glitched {
+  text-shadow: 10px 10px 0 lightcoral, -10px -10px 0 lightblue, 10px -10px 0 red,
+    -10px 10px 0 red, 10px 10px 0 red;
 }
 
 @media (max-width: 500px) {
