@@ -40,7 +40,6 @@ class ThunderBranch {
     const thicknessStart = length / 15;
     const thicknessEnd = this.children.length ? length / 20 : 0;
 
-    console.log(length, thicknessStart, thicknessEnd);
     this.path.moveTo(
       start.x + Math.cos(dir + Math.PI / 2) * thicknessStart,
       start.y + Math.sin(dir + Math.PI / 2) * thicknessStart,
@@ -84,7 +83,6 @@ class Thunderball extends Figure {
       this.branches = inheritFrom.branches;
     } else {
       this.branches = Thunderball.generate({ x, y });
-      console.log(this.branches);
     }
   }
 
