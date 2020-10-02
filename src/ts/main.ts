@@ -1,34 +1,12 @@
+import { Random } from './utils/random';
 import { Figure, RenderOptions, RenderingContext2D } from './utils/rendering';
-
-/**
- * Generate Normally distributed number
- */
-function normalRandom(m: number = 0, sigma = 1): number {
-  // Basic form of Box-Muller transform
-  return (
-    m +
-    Math.cos(2 * Math.PI * Math.random()) *
-      Math.sqrt(-2 * Math.log(Math.random())) *
-      sigma
-  );
-}
-
-type Coords = {
-  readonly x: number;
-  readonly y: number;
-};
-
-class Vector2D {
-  public constructor(
-    public readonly start: Coords,
-    public readonly finish: Coords,
-  ) {}
-}
+import { Coords } from './utils/types/coords';
+import { Vector } from './utils/types/vector';
 
 class ThunderBranch {
   public readonly path: Path2D;
   public constructor(
-    public readonly vector: Vector2D,
+    public readonly vector: Vector,
     public readonly children: ThunderBranch[],
   ) {
     this.path = new Path2D();
@@ -110,14 +88,16 @@ class Thunderball extends Figure {
         ? [...Array(children).keys()].map(() =>
             Thunderball.generateBranch(
               end,
-              direction + normalRandom(1, 0.1) * Math.PI * 2,
+              direction + Random.normal(1, 0.1) * Math.PI * 2,
               p * reduceCoeff,
               reduceCoeff,
               length * reduceCoeff,
             ),
           )
         : [];
-    return new ThunderBranch(new Vector2D(start, end), subBranches);
+    return new ThunderBranch({
+      start, finish: end,
+    }, subBranches);
   }
 
   public get path(): Path2D {
@@ -127,12 +107,16 @@ class Thunderball extends Figure {
   }
 
   public static fade(figure: Thunderball): Thunderball | null {
+    const newAlpha = figure.options.alpha - 0.002;
+    if (newAlpha <= 0) {
+      return null;
+    }
     return new Thunderball(
       figure.x,
       figure.y,
       {
         ...figure.options,
-        opacity: figure.options.opacity - 0.001,
+        alpha: newAlpha,
       },
       figure,
     );
@@ -159,7 +143,7 @@ function renderThunder(x: number, y: number): void {
   heading.classList.add('glitched');
   setTimeout(() => heading.classList.remove('glitched'), 100);
   ctx.renderFigure(
-    new Thunderball(x, y, { opacity: 1, r: 125, g: 30, b: 103 }),
+    new Thunderball(x, y, { alpha: 1, color: '#7d1e67' }),
     (figure) =>
       figure instanceof Thunderball ? Thunderball.fade(figure) : null,
   );

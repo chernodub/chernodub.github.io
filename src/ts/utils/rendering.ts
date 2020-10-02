@@ -1,10 +1,12 @@
+import { Hex } from "./hex";
+
 /** TODO */
 export interface RenderOptions {
-  // TODO change to `color` and `opacity`
-  readonly opacity: number;
-  readonly r: number;
-  readonly g: number;
-  readonly b: number;
+  /** Alpha channel value. */
+  readonly alpha: number;
+  // TODO: Set up a validation somehow
+  /** Hex color. */
+  readonly color: string;
 }
 
 /** TODO */
@@ -24,12 +26,21 @@ export abstract class Figure {
   public abstract get path(): Path2D;
 }
 
-/** TODO */
-export interface RenderElement {
+
+
+type FigureAnimationFn = (figure: Figure) => Figure | null;
+
+class RenderElement {
   /** TODO */
-  readonly figure: Figure;
-  /** TODO */
-  readonly getNextFrame: (figure: Figure) => Figure | null;
+  public constructor(
+    public readonly figure: Figure,
+    public readonly animation?: FigureAnimationFn,
+  ) {}
+
+  public get next(): RenderElement | null {
+    const nextFigure = this.animation && this.animation(this.figure);
+    return nextFigure ? new RenderElement(nextFigure, this.animation) : null;
+  }
 }
 
 /** TODO */
@@ -39,7 +50,9 @@ export class RenderingContext2D {
   /** TODO */
   public readonly ctx: CanvasRenderingContext2D;
 
-  private readonly elements: RenderElement[] = [];
+  /** Array of rendered objects. */
+  private elements: RenderElement[] = [];
+  private queue: RenderElement[] = [];
 
   public constructor(document: Document) {
     this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -65,32 +78,25 @@ export class RenderingContext2D {
 
   public renderFigure(
     figure: Figure,
-    renderFrame: (figure: Figure) => Figure | null = (figure) => figure,
+    renderFrame?: FigureAnimationFn,
   ): void {
-    this.elements.push({
-      figure,
-      getNextFrame: renderFrame,
-    });
+    this.elements.push(new RenderElement(figure, renderFrame));
   }
 
   private render(): void {
     window.requestAnimationFrame(() => {
       this.ctx.clearRect(0, 0, this.width, this.height);
-      this.elements.forEach((el, i) => {
-        const newFigure = el.getNextFrame(el.figure);
-        if (newFigure) {
-          this.elements.splice(i, 1, {
-            figure: newFigure,
-            getNextFrame: el.getNextFrame,
-          });
-          const { r, g, b } = el.figure.options;
-          this.ctx.fillStyle = `rgb(${r}, ${g}, ${b}${
-            ', ' + newFigure.options?.opacity
-          })`;
-          this.ctx.fill(el.figure.path);
-        } else {
-          this.elements.splice(i, 1);
-        }
+      const nextFrameElements: RenderElement[] = this.elements
+        .reduce((acc, el) => el.next ? acc.concat(el.next) : acc, [] as RenderElement[])
+        .concat(this.queue);
+
+      // Clean up the queue
+      this.queue = [];
+      this.elements = nextFrameElements;
+
+      this.elements.forEach(({figure}) => {
+        this.ctx.fillStyle = Hex.adjustWithAlpha(figure.options.color, figure.options.alpha);
+        this.ctx.fill(figure.path);
       });
       this.render();
     });
