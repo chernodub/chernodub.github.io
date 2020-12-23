@@ -5,10 +5,12 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"npm:watch-dev\" \"npm:serve-dev\"",
+    "start": "npm run dev",
+    "dev": "npm run build-dev && concurrently \"npm:watch-dev\" \"npm:serve-dev\"",
     "serve-dev": "live-server --ignorePattern=\".*\\.ts\" ./dist",
-    "watch-dev": "webpack --mode development -w --debug --devtool inline-source-map",
-    "build": "webpack -p"
+    "watch-dev": "npm run build-dev -- -w",
+    "build": "webpack -p",
+    "build-dev": "webpack --mode development --debug --devtool inline-source-map"
   },
   "repository": {
     "type": "git",
