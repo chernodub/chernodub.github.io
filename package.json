@@ -9,7 +9,7 @@
     "dev": "npm run build-dev && concurrently \"npm:watch-dev\" \"npm:serve-dev\"",
     "serve-dev": "live-server --ignorePattern=\".*\\.ts\" ./dist",
     "watch-dev": "npm run build-dev -- -w",
-    "build": "webpack -p",
+    "build": "webpack",
     "build-dev": "webpack --mode development --debug --devtool inline-source-map",
     "lint": "eslint src/**/*.ts --fix"
   },
