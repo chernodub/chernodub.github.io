@@ -10,7 +10,7 @@
     "serve-dev": "live-server --ignorePattern=\".*\\.ts\" ./dist",
     "watch-dev": "npm run build-dev -- -w",
     "build": "webpack",
-    "build-dev": "webpack --mode development --debug --devtool inline-source-map",
+    "build-dev": "webpack --mode development --devtool inline-source-map",
     "lint": "eslint src/**/*.ts --fix"
   },
   "repository": {
