@@ -5,8 +5,8 @@ h1 {
 }
 
 h1.glitched {
-  text-shadow: 10px 10px 0 lightcoral, -10px -10px 0 lightblue,
-    10px -10px 0 var(--complementary-color),
-    -10px 10px 0 var(--complementary-color),
-    10px 10px 0 var(--complementary-color);
+  opacity: 0.8;
+  text-shadow: 6px 6px 0 lightcoral, -6px -6px 0 lightblue,
+    6px -6px 0 var(--complementary-color), -6px 6px 0 var(--complementary-color),
+    6px 6px 0 var(--complementary-color);
 }

@@ -1,13 +1,15 @@
 /** Namespace with functions generating random distributions. */
 export namespace Random {
+
   /**
-   * Generate Normally distributed number
+   * Generate Normally distributed number.
    * @param m Mean.
-   * @param sigma Standard deviation
-   * 
-   * @see https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform
+   * @param sigma Standard deviation.
+   *
+   * @see Https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform.
    */
-  export function normal(m: number = 0, sigma = 1): number {
+  export function normal(m = 0, sigma = 1): number {
+
     // Basic form of Box-Muller transform
     return (
       m +

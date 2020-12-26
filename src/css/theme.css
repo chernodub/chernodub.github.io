@@ -11,10 +11,10 @@
   --primary-shade-color: darkslateblue;
   --primary-contrast-color: white;
 
-  --complementary-color: #7d1e67;
+  --complementary-color: #8f00f1;
 }
 
-/* @media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: light) {
   :root {
     --background-color: lightgrey;
 
@@ -23,5 +23,6 @@
 
     --primary-color: black;
     --primary-contrast-color: white;
+    --complementary-color: #000;
   }
-} */
+}

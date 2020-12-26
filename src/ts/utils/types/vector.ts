@@ -1,6 +1,7 @@
-import { Coords } from "./coords";
-
-export interface Vector {
-  readonly start: Coords;
-  readonly finish: Coords;
+/**
+ *
+ */
+export interface Vector<C> {
+  readonly start: C;
+  readonly finish: C;
 }

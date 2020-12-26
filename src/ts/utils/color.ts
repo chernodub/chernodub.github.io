@@ -1,8 +1,9 @@
 /** Hex parsing tools. */
 export namespace Color {
+
   /**
    * Adjust HEX color with alpha channel.
-   * @param color Full form of hex color. (e.g. `#ffffff`)
+   * @param color Full form of hex color. (e.g. `#ffffff`).
    * @param alpha Alpha channel.
    *
    * @example
@@ -15,7 +16,7 @@ export namespace Color {
     const hexAlpha = Math.floor(alpha * 255).toString(16);
 
     // So that the alpha number would have proper scale of 2 numbers (e.g: `0f` instead of `f`)
-    const scaledHexAlpha = hexAlpha.length < 2 ? '0' + hexAlpha : hexAlpha;
+    const scaledHexAlpha = hexAlpha.length < 2 ? `0${hexAlpha}` : hexAlpha;
 
     return `${parseHex(color)}${scaledHexAlpha}`;
   }
@@ -25,24 +26,26 @@ export namespace Color {
    * @param color Hex color value matching regular expression (`#000` | `#000000` | `#000000`).
    */
   function parseHex(color: string): string {
-    // Prepare color to parsing
-    const _color = color.trim();
 
-    if (hexRule.short.test(_color)) {
-      return `${_color}${_color.replace('#', '')}`;
-    } else if (hexRule.withAlpha.test(_color)) {
+    // Prepare color to parsing
+    const col = color.trim();
+
+    if (hexRule.short.test(col)) {
+      return `${col}${col.replace('#', '')}`;
+    } else if (hexRule.withAlpha.test(col)) {
+
       // Simply cut off the alpha
-      return `${_color.slice(0, 7)}`;
-    } else if (hexRule.default.test(_color)) {
-      return _color;
+      return `${col.slice(0, 7)}`;
+    } else if (hexRule.default.test(col)) {
+      return col;
     }
-    throw new Error(`${_color} does not match any of the hex rules`);
+    throw new Error(`${col} does not match any of the hex rules`);
   }
 
   // regex rules for different hex forms
   const hexRule = {
-    short: /^#[a-fA-F1-9]{3}$/,
-    default: /^#[a-fA-F1-9]{6}$/,
-    withAlpha: /^#[a-fA-F1-9]{8}$/,
+    short: /^#[a-fA-F0-9]{3}$/u,
+    default: /^#[a-fA-F0-9]{6}$/u,
+    withAlpha: /^#[a-fA-F0-9]{8}$/u,
   } as const;
 }

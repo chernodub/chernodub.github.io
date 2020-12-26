@@ -1,14 +1,14 @@
 import { Random } from '../../utils/random';
 import { Rendering2D } from '../rendering';
-import { Coords } from '../../utils/types/coords';
 import { Vector } from '../../utils/types/vector';
 
 // TODO improve codestyle and docs
 /** Part of the thunderball. */
 class Branch {
   public readonly path: Path2D;
+
   public constructor(
-    public readonly vector: Vector,
+    public readonly vector: Vector<Rendering2D.Coordinates>,
     public readonly children: Branch[],
   ) {
     this.path = this.initPath();
@@ -17,8 +17,8 @@ class Branch {
   private initPath(): Path2D {
     const path = new Path2D();
     const { start, finish } = this.vector;
-    const y = finish.y - start.y,
-      x = finish.x - start.x;
+    const y = finish.y - start.y;
+    const x = finish.x - start.x;
     const length = Math.sqrt(y * y + x * x);
     const dir = Math.atan2(y, x);
     const thicknessStart = length / 15;
@@ -47,7 +47,7 @@ class Branch {
       dir + Math.PI / 2,
     );
     path.closePath();
-    this.children.forEach((child) => path.addPath(child.path));
+    this.children.forEach(child => path.addPath(child.path));
 
     return path;
   }
@@ -58,7 +58,7 @@ export class Tree extends Rendering2D.Figure {
   private readonly branches: Branch[];
 
   /**
-   * @constructor
+   * @class
    * @param x
    * @param y
    * @param options
@@ -79,35 +79,44 @@ export class Tree extends Rendering2D.Figure {
     }
   }
 
-  private static generate(start: Coords): Branch[] {
+  /**
+   * @param start
+   */
+  private static generate(start: Rendering2D.Coordinates): Branch[] {
     const pointsNum = Math.floor(Math.random() * 10) + 5;
     return [...Array(pointsNum).keys()].map(() => Tree.generateBranch(start));
   }
 
+  /**
+   * @param start
+   * @param direction
+   * @param p
+   * @param reduceCoeff
+   * @param length
+   * @param children
+   */
   private static generateBranch(
-    start: Coords,
+    start: Rendering2D.Coordinates,
     direction: number = Math.PI * Math.random() * 2,
-    p: number = 1,
+    p = 1,
     reduceCoeff = 0.95,
     length = 30,
     children: number = Math.floor(Math.random() * 3),
   ): Branch {
-    const end: Coords = {
+    const end: Rendering2D.Coordinates = {
       x: Math.cos(direction) * length + start.x,
       y: Math.sin(direction) * length + start.y,
     };
     const subBranches =
-      Math.random() < p
-        ? [...Array(children).keys()].map(() =>
-            Tree.generateBranch(
-              end,
-              direction + Random.normal(1, 0.1) * Math.PI * 2,
-              p * reduceCoeff,
-              reduceCoeff,
-              length * reduceCoeff,
-            ),
-          )
-        : [];
+      Math.random() < p ?
+        [...Array(children).keys()].map(() => Tree.generateBranch(
+          end,
+          direction + Random.normal(1, 0.1) * Math.PI * 2,
+          p * reduceCoeff,
+          reduceCoeff,
+          length * reduceCoeff,
+        )) :
+        [];
     return new Branch(
       {
         start,
@@ -117,12 +126,18 @@ export class Tree extends Rendering2D.Figure {
     );
   }
 
+  /**
+   *
+   */
   public get path(): Path2D {
     const path = new Path2D();
-    this.branches.forEach((branch) => path.addPath(branch.path));
+    this.branches.forEach(branch => path.addPath(branch.path));
     return path;
   }
 
+  /**
+   * @param figure
+   */
   public static fade(figure: Tree): Tree | null {
     const newAlpha = figure.options.alpha - 0.002;
     if (newAlpha <= 0) {
