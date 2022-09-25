@@ -1,0 +1,6 @@
+:root {
+  --medium-color: #ccc;
+  --medium-dark-color: #aaa;
+
+  --hover-transition: 100ms ease-in-out;
+}
