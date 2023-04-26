@@ -27,12 +27,30 @@ import Contacts from "../components/Contacts.astro";
         padding: 20px;
       }
     </style>
+    <!-- Yandex.RTB -->
+    <script>window.yaContextCb=window.yaContextCb||[]</script>
+    <script src="https://yandex.ru/ads/system/context.js" async></script>
   </head>
   <body>
     <Background class="background" />
     <main class="page">
       <AboutMe />
       <Contacts />
+      <footer>
+        I work with ads, so...
+        
+        <div>
+          <!-- Yandex.RTB R-A-2359775-1 -->
+          <div id="yandex_rtb_R-A-2359775-1"></div>
+          <script>window.yaContextCb.push(()=>{
+            Ya.Context.AdvManager.render({
+              "blockId": "R-A-2359775-1",
+              "renderTo": "yandex_rtb_R-A-2359775-1"
+            })
+          })
+          </script>
+        </div>
+      </footer>
     </main>
   </body>
 </html>
