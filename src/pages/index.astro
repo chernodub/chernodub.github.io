@@ -1,38 +1,39 @@
 ---
-import Background from "../components/Background.astro";
+import SocialLink from "../components/SocialLink.astro";
 import MainHead from "../components/MainHead.astro";
-import AboutMe from "../components/AboutMe.astro";
-import Contacts from "../components/Contacts.astro";
 ---
 
-<html lang="en">
+<html
+  lang="en"
+  class="h-full w-full bg-gray-100 dark:bg-gray-800 dark:text-gray-300"
+>
   <head>
     <MainHead />
-
-    <style>
-      html {
-        font-size: 1.5rem;
-      }
-
-      .page {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        width: min(100%, 800px);
-        padding-bottom: 15%;
-        margin: auto;
-        padding: 20px;
-      }
-    </style>
   </head>
-  <body>
-    <Background class="background" />
-    <main class="page">
-      <AboutMe />
-      <Contacts />
-    </main>
+  <body class="h-full w-full grid grid-rows-5 grid-cols-12">
+    <div
+      class="col-start-3 col-span-full row-start-2 row-span-full flex flex-col gap-4"
+    >
+      <p class="text-4xl">
+        Viktor Chernodub, SWE <a
+          href="https://yandex.ru"
+          class="font-bold hover:text-red-400 transition-colors">@Yandex</a
+        >
+      </p>
+
+      <ul class="flex gap-2">
+        <li>
+          <SocialLink href="https://linkedin.com/in/chernodub">
+            LinkedIn
+          </SocialLink>
+        </li>
+        <li>
+          <SocialLink href="https://t.me/chernodubv">Telegram</SocialLink>
+        </li>
+        <li>
+          <SocialLink href="https://github.com/chernodub">GitHub</SocialLink>
+        </li>
+      </ul>
+    </div>
   </body>
 </html>
